@@ -12,12 +12,11 @@ import java.util.List;
 @RestController("/user")
 public class UserController {
 
-    private final UserRepositoy userRepositoy;
     private UserService userService;
 
-    public UserController(UserService userService, UserRepositoy userRepositoy) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userRepositoy = userRepositoy;
+
     }
 
     @GetMapping("/getAllUsers")
