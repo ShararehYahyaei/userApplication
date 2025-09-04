@@ -114,6 +114,21 @@ public class UseRepositoryTest {
         Assertions.assertThat(save.getFirstName()).isEqualTo("mohammad");
 
     }
+
+    @Test
+    public void userRepository_DeleteUser_ShouldReturnEmpty() {
+        User user = User.builder()
+                .firstName("ali")
+                .lastName("chen")
+                .email("chen@gmail.com")
+                .password("123456")
+                .build();
+        User userSave = userRepository.save(user);
+        userRepository.delete(userSave);
+        Optional<User> userDeleted = userRepository.findById(userSave.getId());
+        Assertions.assertThat(userDeleted).isEmpty();
+
+    }
 }
 
 
