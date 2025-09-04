@@ -16,7 +16,7 @@ import java.util.List;
 public class UseRepositoryTest {
 
     @Autowired
-    private UserRepositoy userRepositoy;
+    private UserRepositoy userRepository;
 
 
     @Test
@@ -28,7 +28,7 @@ public class UseRepositoryTest {
                 .password("123456")
                 .build();
 
-        User userSave = userRepositoy.save(user);
+        User userSave = userRepository.save(user);
         Assertions.assertThat(userSave).isNotNull();           // object is saved
         Assertions.assertThat(userSave.getId()).isGreaterThan(0); // id is generated
         Assertions.assertThat(userSave.getFirstName()).isEqualTo("ali"); // fields are correct
@@ -49,11 +49,27 @@ public class UseRepositoryTest {
                 .email("chennnn@gmail.com")
                 .password("25632")
                 .build();
-        userRepositoy.save(firstUser);
-        userRepositoy.save(secondUser);
-        List<User> users = userRepositoy.findAll();
+        userRepository.save(firstUser);
+        userRepository.save(secondUser);
+        List<User> users = userRepository.findAll();
         Assertions.assertThat(users).isNotNull();
         Assertions.assertThat(users.size()).isEqualTo(2);
+    }
+
+
+    @Test
+    public void userRepository_GetById_ShouldReturnUser() {
+        User user = User.builder()
+                .firstName("ali")
+                .lastName("chen")
+                .email("chen@gmail.com")
+                .password("123456")
+                .build();
+
+        User userSave = userRepository.save(user);
+        userRepository.findById(userSave.getId());
+        Assertions.assertThat(userSave).isNotNull();
+        Assertions.assertThat(userSave.getId()).isEqualTo(user.getId());
     }
 }
 
