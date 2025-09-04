@@ -16,7 +16,7 @@ import java.util.List;
 public class UseRepositoryTest {
 
     @Autowired
-    private UserRepositoy userRepsitory;
+    private UserRepositoy userRepositoy;
 
 
     @Test
@@ -28,13 +28,33 @@ public class UseRepositoryTest {
                 .password("123456")
                 .build();
 
-        User userSave = userRepsitory.save(user);
+        User userSave = userRepositoy.save(user);
         Assertions.assertThat(userSave).isNotNull();           // object is saved
         Assertions.assertThat(userSave.getId()).isGreaterThan(0); // id is generated
         Assertions.assertThat(userSave.getFirstName()).isEqualTo("ali"); // fields are correct
     }
 
 
+    @Test
+    public void userRepository_GetAllUsers_ShouldReturnALlUsers() {
+        User firstUser = User.builder()
+                .firstName("ali")
+                .lastName("chen")
+                .email("chen@gmail.com")
+                .password("123456")
+                .build();
+        User secondUser = User.builder()
+                .firstName("mohammad")
+                .lastName("chenniii")
+                .email("chennnn@gmail.com")
+                .password("25632")
+                .build();
+        userRepositoy.save(firstUser);
+        userRepositoy.save(secondUser);
+        List<User> users = userRepositoy.findAll();
+        Assertions.assertThat(users).isNotNull();
+        Assertions.assertThat(users.size()).isEqualTo(2);
+    }
 }
 
 
