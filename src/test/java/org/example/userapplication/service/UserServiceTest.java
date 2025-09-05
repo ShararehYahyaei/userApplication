@@ -110,4 +110,20 @@ public class UserServiceTest {
         verify(userRepositoy, times(1)).save(any(User.class));
 
     }
+
+    @Test
+    public void userService_DeleteUser_ShouldDeleteUser() {
+        User user = User.builder()
+                .firstName("amir")
+                .lastName("soleimany")
+                .email("soleimany@gmail.com")
+                .password("123456")
+                .build();
+
+
+        when(userRepositoy.findById(1L)).thenReturn(Optional.ofNullable(user));
+        userService.deleteUserById(1L);
+        verify(userRepositoy, times(1)).deleteById(1L);
+
+    }
 }
