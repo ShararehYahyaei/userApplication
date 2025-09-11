@@ -1,6 +1,7 @@
 package org.example.userapplication.service;
 
 
+import org.example.userapplication.dto.UserDto;
 import org.example.userapplication.model.User;
 import org.example.userapplication.repository.UserRepositoy;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long id, User user) {
+    public User updateUser(Long id, UserDto user) {
 
         if (userRepositoy.findById(id).isPresent()) {
             User userToUpdate = userRepositoy.findById(id).get();

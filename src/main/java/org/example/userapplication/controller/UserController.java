@@ -1,6 +1,7 @@
 package org.example.userapplication.controller;
 
 
+import org.example.userapplication.dto.UserDto;
 import org.example.userapplication.model.User;
 import org.example.userapplication.repository.UserRepositoy;
 import org.example.userapplication.service.UserService;
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
     private UserService userService;
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("updateUser/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDto user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
 
     }
@@ -45,7 +47,7 @@ public class UserController {
         return ResponseEntity.ok(userService.deleteUserById(id));
     }
 
-    @GetMapping("{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         return ResponseEntity.ok(userService.findUserByEmail(email));
     }

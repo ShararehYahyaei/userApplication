@@ -2,6 +2,7 @@ package org.example.userapplication.service;
 
 
 import org.assertj.core.api.Assertions;
+import org.example.userapplication.dto.UserDto;
 import org.example.userapplication.model.User;
 import org.example.userapplication.repository.UserRepositoy;
 import org.junit.jupiter.api.Test;
@@ -100,12 +101,15 @@ public class UserServiceTest {
         when(userRepositoy.findById(1L)).thenReturn(Optional.ofNullable(user));
         when(userRepositoy.save(Mockito.any(User.class))).thenReturn(user);
 
-        user.setFirstName("amirrrr");
-        user.setLastName("soleiimany");
+        UserDto userDto = UserDto.builder()
+                .firstName("ali")
+                .lastName("ayhayeiii")
+                .email("ayhayeiii@gmail.com")
+                .build();
 
-        User updatedUser = userService.updateUser(1L, user);
+        User updatedUser = userService.updateUser(1L, userDto);
         Assertions.assertThat(updatedUser).isNotNull();
-        Assertions.assertThat("amirrrr").isEqualTo(updatedUser.getFirstName());
+        Assertions.assertThat("ali").isEqualTo(user.getFirstName());
         verify(userRepositoy, times(2)).findById(1L);
         verify(userRepositoy, times(1)).save(any(User.class));
 
